@@ -2,7 +2,7 @@
  * @Descripttion : 
  * @Author       : 马识途
  * @Date         : 2020-04-18 13:08:37
- * @LastEditTime: 2020-04-19 17:03:21
+ * @LastEditTime: 2020-04-19 17:45:00
  * @FilePath     : \hnswc-webg:\codeFile\nodeJS\sina-code\src\routes\index.js
  */
 const router = require('koa-router')()
@@ -49,7 +49,6 @@ router.get('/json', async (ctx, next) => {
   session.viewNum++
   ctx.body = {
     title: 'koa2 json',
-    session
   }
 })
 

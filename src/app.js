@@ -2,7 +2,7 @@
  * @Descripttion : 
  * @Author       : 马识途
  * @Date         : 2020-04-18 13:08:37
- * @LastEditTime: 2020-04-19 17:21:13
+ * @LastEditTime: 2020-04-19 18:20:39
  * @FilePath     : \hnswc-webg:\codeFile\nodeJS\sina-code\src\app.js
  */
 const Koa = require('koa')
@@ -12,6 +12,7 @@ const json = require('koa-json')
 const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
+const { isProd } = require('./utils/env');
 //session和redis
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
@@ -47,13 +48,14 @@ app.use(session({
 //   }
 // })
 
-
 //redis和session结束
+//引入路由 包括view和api两种
 const index = require('./routes/index')
 const users = require('./routes/users')
+const errorViewRouter = require('./routes/view/error');
 
-// error handler
-onerror(app)
+// error handler 线上环境重定向至error
+onerror(app, isProd ? { redirect: '/error' }: {})
 
 // middlewares
 app.use(bodyparser({
@@ -75,9 +77,10 @@ app.use(views(__dirname + '/views', {
   console.log (`${ctx.method} ${ctx.url} - ${ms}ms`)
 }) */
 
-// routes
+// 使用路由 包括view和api两种
 app.use(index.routes(), index.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
+app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

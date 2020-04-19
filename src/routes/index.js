@@ -1,3 +1,10 @@
+/**
+ * @Descripttion : 
+ * @Author       : 马识途
+ * @Date         : 2020-04-18 13:08:37
+ * @LastEditTime: 2020-04-19 17:03:21
+ * @FilePath     : \hnswc-webg:\codeFile\nodeJS\sina-code\src\routes\index.js
+ */
 const router = require('koa-router')()
 
 router.get('/', async (ctx, next) => {
@@ -35,8 +42,14 @@ router.get('/loadMore/:username/:pageIndex', async (ctx, next) => {
 })
 
 router.get('/json', async (ctx, next) => {
+  const session = ctx.session //可以获取当前用户的session
+  if(session.viewNum == null){
+    session.viewNum
+  }
+  session.viewNum++
   ctx.body = {
-    title: 'koa2 json'
+    title: 'koa2 json',
+    session
   }
 })
 

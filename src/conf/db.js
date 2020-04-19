@@ -2,15 +2,7 @@
  * @Descripttion : 
  * @Author       : 马识途
  * @Date         : 2020-04-19 12:20:26
- * @LastEditTime : 2020-04-19 16:03:35
- * @FilePath     : \hnswc-webg:\codeFile\nodeJS\sina-code\src\conf\db.js
- */
-/**
- * @Descripttion : 数据库配置
- * @version      : 
- * @Author       : 马识途
- * @Date         : 2020-04-19 12:20:26
- * @LastEditTime : 2020-04-19 16:02:49
+ * @LastEditTime: 2020-04-19 16:04:18
  * @FilePath     : \hnswc-webg:\codeFile\nodeJS\sina-code\src\conf\db.js
  */
 

@@ -1,16 +1,17 @@
-/*
- * @Descripttion: sequelize 初始化
- * @version: 
- * @Author: 马识途
- * @Date: 2020-04-19 12:03:31
- * @LastEditTime: 2020-04-19 14:17:44
- * @FilePath: \hnswc-webg:\codeFile\nodeJS\sina-code\src\db\seq.js
- */
-const Sequelize = require('sequelize')
+/**
+ * @Descripttion : sequelize 初始化 连接数据库
+ * @Author       : 马识途
+ * @Date         : 2020-04-20 09:34:44
+ * @LastEditTime: 2020-04-20 18:39:45
+ * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\db\seq.js
+*/
+
+const Sequelize = require('sequelize');
+const { isProd, isTest } = require('../utils/env');
 const { MYSQL_CONF, MYSQL_CONF: {host, user, password, database} } = require('../conf/db');
 const conf = {
   host: host,
-  dialect: 'mysql'
+  dialect: 'mysql' //数据库类型
 }
 if(isProd){ //线上使用连接池
   conf.pool = {
@@ -26,7 +27,7 @@ const seq = new Sequelize(database, user, password, conf)
 
 //测试连接
 seq.authenticate().then(() => {
-  console.log(111111);
+  console.log('成功连接至数据库');
 }).catch((err) => {
   console.log(err);
 })

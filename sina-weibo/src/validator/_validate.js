@@ -1,9 +1,9 @@
 /**
- * @Descripttion : 
+ * @Descripttion : schema 验证 
  * @Author       : 马识途
  * @Date         : 2020-04-21 13:57:02
- * @LastEditTime: 2020-04-21 14:07:19
- * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\validator\validate.js
+ * @LastEditTime: 2020-04-21 19:12:58
+ * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\validator\_validate.js
 */
 
 const Ajv = require('ajv');
@@ -15,6 +15,7 @@ const ajv = new Ajv({
  * @param {Object} schema json schema 规则
  * @param {Object} data 待校验数据
  */
+
 function validate(schema, data = {}) {
   const valid = ajv.validate(schema, data)
   if(!valid){

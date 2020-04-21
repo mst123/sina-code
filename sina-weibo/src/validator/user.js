@@ -2,11 +2,11 @@
  * @Descripttion : user数据格式校验
  * @Author       : 马识途
  * @Date         : 2020-04-21 13:49:28
- * @LastEditTime: 2020-04-21 14:11:26
+ * @LastEditTime: 2020-04-21 16:30:00
  * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\validator\user.js
 */
 
-const validate = require('./_validate');
+const _validate = require('./_validate');
 // 校验规则
 const SCHEMA = {
   type: 'object',
@@ -53,7 +53,7 @@ const SCHEMA = {
  * @param {Object} data 用户数据
  */
 function userValidate(data = {}) {
-  return validate(SCHEMA, data)
+  return _validate(SCHEMA, data)
 }
 
 module.exports = userValidate

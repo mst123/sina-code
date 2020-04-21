@@ -2,7 +2,7 @@
  * @Descripttion  : user controller
  * @Author        : 马识途
  * @Date          : 2020-04-20 14:18:02
- * @LastEditTime: 2020-04-21 13:32:37
+ * @LastEditTime: 2020-04-21 19:38:57
  * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\controller\user.js
 */
 const { getUserInfo, createUser } = require('../services/user');
@@ -10,7 +10,8 @@ const { SucessModel, ErrorModel } = require('../resModel/ResModel');
 const { 
   registerUserNameNotExistInfo,
   registerUserNameExistInfo, 
-  registerFailInfo 
+  registerFailInfo,
+  loginFailInfo
 } = require('../resModel/errorInfo');
 const doCrypto = require('../utils/cryp');
 
@@ -46,8 +47,27 @@ async function register({userName, password, gender}){ //解构方式 可以不�
     return ErrorModel(registerFailInfo)
   }
 }
+/**
+ * 
+ * @param {Object} ctx 
+ * @param {Sring} userName 用户名
+ * @param {Sring} password 密码
+ */
+async function login({ctx, userName, password}){ 
+  const userInfo = await getUserInfo(userName, doCrypto(password))
+  if(!userInfo){
+    return new ErrorModel(loginFailInfo)
+  }
+  //登陆成功
+  if(ctx.session.userInfo == null){
+    //每一个用户的session都是唯一的，通过cookie携带
+    ctx.session.userInfo = userInfo 
+  }
+  return new SucessModel()
+}
 module.exports = {
   isExist,
-  register
+  register,
+  login
 };
 

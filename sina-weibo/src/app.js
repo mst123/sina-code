@@ -2,8 +2,8 @@
  * @Descripttion : 
  * @Author       : 马识途
  * @Date         : 2020-04-18 13:08:37
- * @LastEditTime: 2020-04-20 14:09:16
- * @FilePath      : \projecte:\codeFile\sina-code\sina-weibo\src\app.js
+ * @LastEditTime: 2020-04-21 11:22:33
+ * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\app.js
  */
 const Koa = require('koa')
 const app = new Koa()
@@ -17,8 +17,9 @@ const { isProd } = require('./utils/env');
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
 const { REDIS_CONF } = require('./conf/db');
+const { SESSION_SECRET_KEY } = require('./conf/secretKeys');
 //加密
-app.keys = ['sadfah@#$#@2131ASD'] //密匙
+app.keys = [SESSION_SECRET_KEY] //密钥
 app.use(session({
   key: 'weibo.sid',//cookie 的名字 默认是koa.sid
   prefix: 'weibo:sess:', //redis  session值的前缀 默认是 koa:sess:

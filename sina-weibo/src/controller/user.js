@@ -2,7 +2,7 @@
  * @Descripttion  : user controller
  * @Author        : 马识途
  * @Date          : 2020-04-20 14:18:02
- * @LastEditTime: 2020-04-20 20:13:00
+ * @LastEditTime: 2020-04-21 13:32:37
  * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\controller\user.js
 */
 const { getUserInfo, createUser } = require('../services/user');
@@ -12,6 +12,7 @@ const {
   registerUserNameExistInfo, 
   registerFailInfo 
 } = require('../resModel/errorInfo');
+const doCrypto = require('../utils/cryp');
 
 async function isExist(userName){
   const userInfo = await getUserInfo(userName)
@@ -35,7 +36,7 @@ async function register({userName, password, gender}){ //解构方式 可以不�
   try {
     await createUser({
       userName,
-      password, 
+      password: doCrypto(password), 
       gender
     })
     return new SucessModel()

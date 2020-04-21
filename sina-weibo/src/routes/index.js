@@ -2,12 +2,13 @@
  * @Descripttion : 
  * @Author       : 马识途
  * @Date         : 2020-04-18 13:08:37
- * @LastEditTime: 2020-04-19 17:45:00
- * @FilePath     : \hnswc-webg:\codeFile\nodeJS\sina-code\src\routes\index.js
+ * @LastEditTime: 2020-04-21 20:13:11
+ * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\routes\index.js
  */
 const router = require('koa-router')()
+const { loginRedirect, loginCheck } = require('../middlewares/loginCheck');
 
-router.get('/', async (ctx, next) => {
+router.get('/', loginRedirect, async (ctx, next) => {
   await ctx.render('index', {
     title: 'Hello Koa 2!',
     isMe: false,
@@ -41,7 +42,7 @@ router.get('/loadMore/:username/:pageIndex', async (ctx, next) => {
   }
 })
 
-router.get('/json', async (ctx, next) => {
+router.get('/json', loginCheck, async (ctx, next) => {
   const session = ctx.session //可以获取当前用户的session
   if(session.viewNum == null){
     session.viewNum

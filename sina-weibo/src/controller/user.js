@@ -2,16 +2,17 @@
  * @Descripttion  : user controller
  * @Author        : 马识途
  * @Date          : 2020-04-20 14:18:02
- * @LastEditTime: 2020-04-21 19:38:57
+ * @LastEditTime: 2020-04-21 20:26:16
  * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\controller\user.js
 */
-const { getUserInfo, createUser } = require('../services/user');
+const { getUserInfo, createUser, deleteUser } = require('../services/user');
 const { SucessModel, ErrorModel } = require('../resModel/ResModel');
 const { 
   registerUserNameNotExistInfo,
   registerUserNameExistInfo, 
   registerFailInfo,
-  loginFailInfo
+  loginFailInfo,
+  deleteUserFailInfo
 } = require('../resModel/errorInfo');
 const doCrypto = require('../utils/cryp');
 
@@ -65,9 +66,20 @@ async function login({ctx, userName, password}){
   }
   return new SucessModel()
 }
+
+async function deleteCurUser(userName) {
+  const result = await deleteUser(userName)
+  if(result){
+    return new SucessModel()
+  }else{
+    return new ErrorModel(deleteUserFailInfo)
+  }
+}
+
 module.exports = {
   isExist,
   register,
-  login
+  login,
+  deleteCurUser
 };
 

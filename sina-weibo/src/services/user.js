@@ -2,7 +2,7 @@
  * @Descripttion : user service
  * @Author       : 马识途
  * @Date         : 2020-04-20 14:34:28
- * @LastEditTime: 2020-04-20 20:06:33
+ * @LastEditTime: 2020-04-21 20:23:34
  * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\services\user.js
 */
 
@@ -48,8 +48,24 @@ async function createUser({userName, password, gender = 3, nickName}){
   })
   return result.dataValues
 }
+
+/**
+ * 删除用户
+ * @param {String} userName 
+ */
+
+async function deleteUser(userName){
+  const result = await User.destroy({
+    where: {
+      userName
+    }
+  })
+  //result 返回删除行数
+  return result > 0
+}
 module.exports = {
   getUserInfo,
-  createUser
+  createUser,
+  deleteUser
 };
  

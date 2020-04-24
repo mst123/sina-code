@@ -2,7 +2,7 @@
  * @Descripttion : 
  * @Author       : 马识途
  * @Date         : 2020-04-18 13:08:37
- * @LastEditTime: 2020-04-21 11:22:33
+ * @LastEditTime: 2020-04-23 20:48:59
  * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\app.js
  */
 const Koa = require('koa')
@@ -53,10 +53,10 @@ app.use(session({
 //引入路由 包括view和api两种
 
 // api路由
-const index = require('./routes/index');
 const user = require('./routes/api/user');
 // view路由
 const userViewRouter = require('./routes/view/user');
+const blogViewRouter = require('./routes/view/blog');
 const errorViewRouter = require('./routes/view/error');
 
 // error handler 线上环境重定向至error
@@ -84,10 +84,10 @@ app.use(views(__dirname + '/views', {
 
 // 使用路由 包括view和api两种
 //api
-app.use(index.routes(), index.allowedMethods())
 app.use(user.routes(), user.allowedMethods())
 //view
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
+app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods())
 app.use(errorViewRouter.routes(), errorViewRouter.allowedMethods()) //始终需要放在最后一列
 
 // error-handling

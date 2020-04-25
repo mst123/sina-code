@@ -2,7 +2,7 @@
  * @Descripttion : 
  * @Author       : 马识途
  * @Date         : 2020-04-18 13:08:37
- * @LastEditTime: 2020-04-25 12:04:43
+ * @LastEditTime: 2020-04-25 19:46:45
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\app.js
  */
 const Koa = require('koa')
@@ -57,6 +57,7 @@ app.use(session({
 // api路由
 const userAPIRouter = require('./routes/api/user');
 const utilsAPIRouter = require('./routes/api/utils');
+const blogHomeAPIRouter = require('./routes/api/blog-home');
 // view路由
 const userViewRouter = require('./routes/view/user');
 const blogViewRouter = require('./routes/view/blog');
@@ -89,6 +90,7 @@ app.use(views(__dirname + '/views', {
 //api
 app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods())
 app.use(utilsAPIRouter.routes(), utilsAPIRouter.allowedMethods())
+app.use(blogHomeAPIRouter.routes(), blogHomeAPIRouter.allowedMethods())
 //view
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods())

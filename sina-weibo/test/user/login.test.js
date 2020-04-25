@@ -2,7 +2,7 @@
  * @Descripttion : user api test
  * @Author       : 马识途
  * @Date         : 2020-04-21 20:34:04
- * @LastEditTime: 2020-04-25 16:28:57
+ * @LastEditTime: 2020-04-25 20:55:59
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\test\user\login.test.js
 */
 

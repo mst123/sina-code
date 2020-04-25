@@ -2,7 +2,7 @@
  * @Descripttion : user service
  * @Author       : 马识途
  * @Date         : 2020-04-20 14:34:28
- * @LastEditTime: 2020-04-25 14:49:06
+ * @LastEditTime: 2020-04-25 15:32:58
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\services\user.js
 */
 
@@ -95,8 +95,10 @@ async function updateUser(
     userName
   }
   if(password){
-    whereData.password = whereData
+    whereData.password = password
   }
+  console.log(updateData);
+  console.log(whereData);
   //执行修改
   const result = await User.update(updateData, {
     where: whereData

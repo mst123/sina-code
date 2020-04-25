@@ -2,11 +2,19 @@
  * @Descripttion  : user api router
  * @Author        : 马识途
  * @Date          : 2020-04-20 14:03:12
- * @LastEditTime: 2020-04-25 14:59:34
+ * @LastEditTime: 2020-04-25 15:58:24
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\routes\api\user.js
  */
 const router = require('koa-router')();
-const { isExist, register, login, deleteCurUser, changeInfo } = require('../../controller/user');
+const { 
+  isExist, 
+  register, 
+  login, 
+  deleteCurUser, 
+  changeInfo, 
+  changePassword,
+  logout
+} = require('../../controller/user');
 const userValidate = require('../../validator/user');
 const { genValidator } = require('../../middlewares/validator');
 const { isTest } = require('../../utils/env');
@@ -46,5 +54,19 @@ router.post('/delete', loginCheck, async (ctx, next) => {
 router.patch('/changeInfo', loginCheck, genValidator(userValidate), async( ctx, next) => {
   const { nickName, city, picture } = ctx.request.body
   ctx.body = await changeInfo(ctx, { nickName, city, picture })
+})
+
+//修改密码
+router.patch('/changePassword', loginCheck, genValidator(userValidate), async (ctx, next) => {
+  const { password, newPassword } = ctx.request.body
+  const { userName } = ctx.session.userInfo
+  ctx.body = await changePassword(
+    {newPassword, userName, password},
+  )
+})
+
+//退出登录
+router.post('/logout', loginCheck, async (ctx, next) => {
+  await logout(ctx)
 })
 module.exports = router

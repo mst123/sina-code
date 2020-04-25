@@ -2,7 +2,7 @@
  * @Descripttion : 失败信息集合 包括 errno 和 message
  * @Author       : 马识途
  * @Date         : 2020-04-20 18:26:58
- * @LastEditTime: 2020-04-25 14:53:09
+ * @LastEditTime: 2020-04-25 15:22:07
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\resModel\errorInfo.js
 */
 

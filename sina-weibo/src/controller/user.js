@@ -2,7 +2,7 @@
  * @Descripttion  : user controller
  * @Author        : 马识途
  * @Date          : 2020-04-20 14:18:02
- * @LastEditTime: 2020-04-25 14:53:32
+ * @LastEditTime: 2020-04-25 15:57:48
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\controller\user.js
 */
 const { getUserInfo, createUser, deleteUser, updateUser } = require('../services/user');
@@ -13,7 +13,8 @@ const {
   registerFailInfo,
   loginFailInfo,
   deleteUserFailInfo,
-  changeInfoFailInfo
+  changeInfoFailInfo,
+  changePasswordFailInfo
 } = require('../resModel/errorInfo');
 const doCrypto = require('../utils/cryp');
 
@@ -109,11 +110,38 @@ async function changeInfo(ctx, { nickName, city, picture }){
     return new ErrorModel(changeInfoFailInfo)
   }
 }
+/**
+ * 修改密码
+ * @param {String} userName
+ * @param {String} password 
+ * @param {String} newPassword
+ */
+async function changePassword ({ userName, password, newPassword }){
+  const result = await updateUser(
+    { newPassword: doCrypto(newPassword)},
+    { userName, password: doCrypto(password) }
+  )
+  if(result){
+    return new SucessModel()
+  }else{
+    return new ErrorModel(changePasswordFailInfo)
+  }
+}
+/**
+ * 退出登录
+ * @param {Object} ctx ctx
+ */
+async function logout(ctx){
+  delete ctx.session.userInfo
+  return new SucessModel()
+} 
 module.exports = {
   isExist,
   register,
   login,
   deleteCurUser,
-  changeInfo
+  changeInfo,
+  changePassword,
+  logout
 };
 

@@ -2,8 +2,8 @@
  * @Descripttion : res 的数据模型 一般文件名大写 表示要输出一个class
  * @Author       : 马识途
  * @Date         : 2020-04-20 15:21:53
- * @LastEditTime: 2020-04-20 16:23:16
- * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\resModel\ResModel.js
+ * @LastEditTime: 2020-04-25 11:59:03
+ * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\resModel\ResModel.js
 */
 
 /**

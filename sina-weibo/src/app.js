@@ -2,8 +2,8 @@
  * @Descripttion : 
  * @Author       : 马识途
  * @Date         : 2020-04-18 13:08:37
- * @LastEditTime: 2020-04-23 20:48:59
- * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\app.js
+ * @LastEditTime: 2020-04-25 12:04:43
+ * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\app.js
  */
 const Koa = require('koa')
 const app = new Koa()
@@ -13,6 +13,8 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 const { isProd } = require('./utils/env');
+const koaStatic = require('koa-static')
+const path = require('path');
 //session和redis
 const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
@@ -53,7 +55,8 @@ app.use(session({
 //引入路由 包括view和api两种
 
 // api路由
-const user = require('./routes/api/user');
+const userAPIRouter = require('./routes/api/user');
+const utilsAPIRouter = require('./routes/api/utils');
 // view路由
 const userViewRouter = require('./routes/view/user');
 const blogViewRouter = require('./routes/view/blog');
@@ -68,8 +71,8 @@ app.use(bodyparser({
 }))
 app.use(json())
 app.use(logger())
-app.use(require('koa-static')(__dirname + '/public')) //根目录静态化
-
+app.use(koaStatic(__dirname + '/public')) //根目录静态化 直接根目录加文件名就可以访问到
+app.use(koaStatic(path.join(__dirname , '../uploadFiles'))) //用户上传图片
 app.use(views(__dirname + '/views', {
   extension: 'ejs'
 }))
@@ -84,7 +87,8 @@ app.use(views(__dirname + '/views', {
 
 // 使用路由 包括view和api两种
 //api
-app.use(user.routes(), user.allowedMethods())
+app.use(userAPIRouter.routes(), userAPIRouter.allowedMethods())
+app.use(utilsAPIRouter.routes(), utilsAPIRouter.allowedMethods())
 //view
 app.use(userViewRouter.routes(), userViewRouter.allowedMethods())
 app.use(blogViewRouter.routes(), blogViewRouter.allowedMethods())

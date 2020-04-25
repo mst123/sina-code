@@ -2,8 +2,8 @@
  * @Descripttion : user api test
  * @Author       : 马识途
  * @Date         : 2020-04-21 20:34:04
- * @LastEditTime: 2020-04-22 09:31:39
- * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\test\user\login.test.js
+ * @LastEditTime: 2020-04-25 16:28:57
+ * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\test\user\login.test.js
 */
 
 const server = require('../server')
@@ -72,6 +72,31 @@ test('登陆，应该成功', async () => {
   COOKIE = res.headers['set-cookie'].join(';')
 })
 
+// 修改基本信息
+test('修改基本信息，应该成功', async () => {
+  const res = await server
+    .patch('/api/user/changeInfo')
+    .send({
+      nickName: '测试昵称',
+      city: '测试城市',
+      picture: '/test.png'
+    })
+    .set('cookie', COOKIE)
+  expect(res.body.errno).toBe(0)
+})
+
+// 修改密码
+test('修改密码，应该成功', async () => {
+  const res = await server
+    .patch('/api/user/changePassword')
+    .send({
+      password,
+      newPassword: `sadafas`
+    })
+    .set('cookie', COOKIE)
+  expect(res.body.errno).toBe(0)
+})
+
 //删除
 test('删除用户,应该成功', async () => {
   const res = await server
@@ -80,6 +105,14 @@ test('删除用户,应该成功', async () => {
   expect(res.body.errno).toBe(0)
 })
 
+// 退出登录
+test('退出登录，应该成功', async () => {
+  const res = await server
+    .post('/api/user/logout')
+    .set('cookie', COOKIE)
+  expect(res.body.errno).toBe(0)
+})
+ 
 //再次查询用户，应该不存在
 test('再次查询用户，应该不存在', async () => {
   const res = await server

@@ -2,7 +2,7 @@
  * @Descripttion  : user api router
  * @Author        : 马识途
  * @Date          : 2020-04-20 14:03:12
- * @LastEditTime: 2020-04-25 15:58:24
+ * @LastEditTime: 2020-04-25 16:32:30
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\routes\api\user.js
  */
 const router = require('koa-router')();
@@ -67,6 +67,6 @@ router.patch('/changePassword', loginCheck, genValidator(userValidate), async (c
 
 //退出登录
 router.post('/logout', loginCheck, async (ctx, next) => {
-  await logout(ctx)
+  ctx.body = await logout(ctx)
 })
 module.exports = router

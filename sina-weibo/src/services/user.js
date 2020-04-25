@@ -2,7 +2,7 @@
  * @Descripttion : user service
  * @Author       : 马识途
  * @Date         : 2020-04-20 14:34:28
- * @LastEditTime: 2020-04-25 15:32:58
+ * @LastEditTime: 2020-04-25 16:05:30
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\services\user.js
 */
 

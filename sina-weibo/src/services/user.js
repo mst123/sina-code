@@ -2,8 +2,8 @@
  * @Descripttion : user service
  * @Author       : 马识途
  * @Date         : 2020-04-20 14:34:28
- * @LastEditTime: 2020-04-21 20:23:34
- * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\services\user.js
+ * @LastEditTime: 2020-04-25 14:49:06
+ * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\services\user.js
 */
 
 const { User } = require('../db/model/index');
@@ -63,9 +63,51 @@ async function deleteUser(userName){
   //result 返回删除行数
   return result > 0
 }
+/**
+ * 更新用户信息
+ * @param {String} newPassword 新密码
+ * @param {String} newNickName 新昵称
+ * @param {String} newPicture 新头像
+ * @param {String} newCity 新城市
+ * @param {String} userName 用户名
+ * @param {String} password 密码
+ */
+async function updateUser(
+  { newPassword, newNickName, newPicture, newCity },
+  { userName, password }
+){
+  // 拼接修改内容
+  let updateData = {}
+  if(newPassword){
+    updateData.password = newPassword
+  }
+  if(newNickName){
+    updateData.nickName = newNickName
+  }
+  if(newPicture){
+    updateData.picture = newPicture
+  }
+  if(newCity){
+    updateData.city = newCity
+  }
+  //拼接查询条件
+  const whereData = {
+    userName
+  }
+  if(password){
+    whereData.password = whereData
+  }
+  //执行修改
+  const result = await User.update(updateData, {
+    where: whereData
+  })
+  return result[0] > 0 // 修改的行数
+  //
+}
 module.exports = {
   getUserInfo,
   createUser,
-  deleteUser
+  deleteUser,
+  updateUser
 };
  

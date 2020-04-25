@@ -2,11 +2,11 @@
  * @Descripttion  : user api router
  * @Author        : 马识途
  * @Date          : 2020-04-20 14:03:12
- * @LastEditTime: 2020-04-21 20:32:31
- * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\routes\api\user.js
+ * @LastEditTime: 2020-04-25 14:59:34
+ * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\routes\api\user.js
  */
 const router = require('koa-router')();
-const { isExist, register, login, deleteCurUser } = require('../../controller/user');
+const { isExist, register, login, deleteCurUser, changeInfo } = require('../../controller/user');
 const userValidate = require('../../validator/user');
 const { genValidator } = require('../../middlewares/validator');
 const { isTest } = require('../../utils/env');
@@ -42,4 +42,9 @@ router.post('/delete', loginCheck, async (ctx, next) => {
   }
 })
 
+//修改个人信息
+router.patch('/changeInfo', loginCheck, genValidator(userValidate), async( ctx, next) => {
+  const { nickName, city, picture } = ctx.request.body
+  ctx.body = await changeInfo(ctx, { nickName, city, picture })
+})
 module.exports = router

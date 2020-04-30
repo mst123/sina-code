@@ -1,3 +1,10 @@
+/**
+ * @Descripttion : 
+ * @Author       : 马识途
+ * @Date         : 2020-04-20 09:34:44
+ * @LastEditTime : 2020-04-27 19:34:28
+ * @FilePath     : \projecte:\codeFile\sina-code\sequelize-test\src\model.js
+*/
 const Sequelize = require('sequelize')
 const seq = require('./seq')
 
@@ -34,13 +41,13 @@ const Blog = seq.define('blog', {
   }
 })
 //外键关联  关联表查询 子牵引父 父牵引子 需要两种关联都写
-Blog.belongsTo(User, {
+Blog.belongsTo(User, { //多对一
   //创建外键 Blog.userId => User.id
   //默认情况是关联id 
   foreignKey: 'userId'
 })
 //外键关联  
-User.hasMany(Blog, {
+User.hasMany(Blog, { //一对多
   //创建外键 Blog.userId => User.id
   //默认情况是关联id 
   foreignKey: 'userId'

@@ -2,7 +2,7 @@
  * @Descripttion  : 用户关系
  * @Author        : 马识途
  * @Date          : 2020-05-02 16:09:39
- * @LastEditTime: 2020-05-03 10:41:23
+ * @LastEditTime: 2020-05-03 11:38:30
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\services\userRelation.js
 */
 const { User, UserRelation } = require('../db/model/index');
@@ -32,14 +32,13 @@ async function getUsersByFollower(followerId){
   })
   //result.count 总数
   //result.rows 查询结果 数组
-  console.log(result);
   //格式化
-  let userList = result.rows.map(row => row.dataValues)
-  userList = formatUser(userList)
+  /* let userList = result.rows.map(row => row.dataValues)
+  userList = formatUser(userList) */
 
   return {
     count: result.count,
-    userList
+    userList: formatUser(result.rows)
   }
 }
 
@@ -71,8 +70,35 @@ async function deleteFollower(userId, followerId){
   return result > 0
 }
 
+/**
+ * 根据用户id获取被关注人列表信息
+ * @param {Number} userId 用户id
+ */
+async function getFollowersByUser(userId){
+  const result = await UserRelation.findAndCountAll({
+    where: {
+      userId
+    },
+    include: {
+      model: User,
+      attributes: ['id', 'userName', 'nickName', 'picture'],
+      order: [
+        ['id', 'desc']
+      ]
+    }
+  })
+  //格式化
+  let followerList = result.rows.map(row => row.user)
+  followerList = formatUser(followerList)
+  return {
+    count: result.count,
+    followerList
+  }
+}
+
 module.exports = {
   getUsersByFollower,
   addFollower,
-  deleteFollower
+  deleteFollower,
+  getFollowersByUser
 };

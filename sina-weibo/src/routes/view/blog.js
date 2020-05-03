@@ -2,7 +2,7 @@
  * @Descripttion : 微博 view 路由
  * @Author       : 马识途
  * @Date         : 2020-04-23 20:45:45
- * @LastEditTime: 2020-05-03 09:59:43
+ * @LastEditTime: 2020-05-03 11:49:54
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\routes\view\blog.js
  */
 const router = require('koa-router')();
@@ -10,7 +10,7 @@ const { loginRedirect } = require('../../middlewares/loginCheck');
 const { isExist } = require('../../controller/user');
 const { getProfileBlogList } = require('../../controller/blog-profile');
 const { getSquareBlogList } = require('../../controller/blog-square');
-const { getFans } =  require('../../controller/user-relation');
+const { getFans, getFollows } =  require('../../controller/user-relation');
 //首页
 router.get('/', loginRedirect, async (ctx, next) => {
   await ctx.render('index', {})
@@ -56,6 +56,9 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
     return item.userName === myUserName 
   })
   
+  // 获取关注人
+  const followsResult = await getFollows(curUserInfo.id)
+  
   await ctx.render('profile', {
     blogData: {
       isEmpty,
@@ -72,7 +75,11 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
         count: fansResult.data.count,
         list: fansResult.data.userList
       },
-      amIFollowed
+      amIFollowed,
+      followersData: {
+        count: followsResult.data.count,
+        list: followsResult.data.followerList
+      },
     }
   })
   

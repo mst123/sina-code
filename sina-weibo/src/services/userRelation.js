@@ -2,11 +2,12 @@
  * @Descripttion  : 用户关系
  * @Author        : 马识途
  * @Date          : 2020-05-02 16:09:39
- * @LastEditTime: 2020-05-03 09:11:09
+ * @LastEditTime: 2020-05-03 10:41:23
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\services\userRelation.js
 */
 const { User, UserRelation } = require('../db/model/index');
 const { formatUser } = require('../services/_format');
+
 /**
  * 根据被关注人id获取粉丝信息，即该用户的粉丝
  * @param {Number} followerId 被关注人id
@@ -42,6 +43,36 @@ async function getUsersByFollower(followerId){
   }
 }
 
+/**
+ * 添加关注关系
+ * @param {Number} userId  用户id
+ * @param {Number} followerId   被关注用户id
+ */
+async function addFollower(userId, followerId){
+  const result = await UserRelation.create({
+    userId,
+    followerId
+  })
+  return result.dataValues
+}
+
+/**
+ * 删除关注关系
+ * @param {Number} userId  用户id
+ * @param {Number} followerId   被关注用户id
+ */
+async function deleteFollower(userId, followerId){
+  const result = await UserRelation.destroy({
+    where: {
+      userId,
+      followerId
+    }
+  })
+  return result > 0
+}
+
 module.exports = {
-  getUsersByFollower
+  getUsersByFollower,
+  addFollower,
+  deleteFollower
 };

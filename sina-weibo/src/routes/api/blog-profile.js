@@ -2,13 +2,14 @@
  * @Descripttion  : 个人主页api路由
  * @Author        : 马识途
  * @Date          : 2020-05-01 11:12:22
- * @LastEditTime: 2020-05-02 10:58:57
+ * @LastEditTime: 2020-05-03 10:34:02
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\routes\api\blog-profile.js
 */
 const router = require('koa-router')();
 const { loginCheck } = require('../../middlewares/loginCheck');
 const { getProfileBlogList } = require('../../controller/blog-profile');
 const { getBlogListStr } = require('../../utils/blog');
+const { follow, unFollow } = require('../../controller/user-relation');
 router.prefix('/api/profile')
 
 // 加载更多
@@ -21,5 +22,18 @@ router.get('/loadMore/:userName/:pageIndex', loginCheck, async(ctx, next) => {
   ctx.body = result
 })
 
+//关注
+router.post('/follow', loginCheck, async(ctx, next) => {
+  const { id: myUserId } = ctx.session.userInfo
+  const { userId: curUserId } = ctx.request.body
+  ctx.body = await follow(myUserId, curUserId)
+})
+
+//关注
+router.post('/unFollow', loginCheck, async(ctx, next) => {
+  const { id: myUserId } = ctx.session.userInfo
+  const { userId: curUserId } = ctx.request.body
+  ctx.body = await unFollow(myUserId, curUserId)
+})
 
 module.exports = router

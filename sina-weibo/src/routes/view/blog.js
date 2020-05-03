@@ -2,7 +2,7 @@
  * @Descripttion : 微博 view 路由
  * @Author       : 马识途
  * @Date         : 2020-04-23 20:45:45
- * @LastEditTime: 2020-05-03 09:13:41
+ * @LastEditTime: 2020-05-03 09:59:43
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\routes\view\blog.js
  */
 const router = require('koa-router')();
@@ -37,7 +37,7 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
   }else {
     //不是当前登陆用户
     const existResult = await isExist(currentUserName)
-    if(existResult!==0){
+    if(existResult.errno!==0){
       //用户名不存在
       return
     }
@@ -50,6 +50,12 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
 
   //获取粉丝
   const fansResult = await getFans(curUserInfo.id)
+
+  // 我是否关注了此人？
+  const amIFollowed = fansResult.data.userList.some(item => {
+    return item.userName === myUserName 
+  })
+  
   await ctx.render('profile', {
     blogData: {
       isEmpty,
@@ -65,10 +71,11 @@ router.get('/profile/:userName', loginRedirect, async (ctx, next) => {
       fansData: {
         count: fansResult.data.count,
         list: fansResult.data.userList
-      }
-      // fansData: { count, list  }
+      },
+      amIFollowed
     }
   })
+  
 })
 // 广场
 router.get('/square', loginRedirect, async (ctx, next) => {

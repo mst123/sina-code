@@ -2,12 +2,13 @@
  * @Descripttion : user service
  * @Author       : 马识途
  * @Date         : 2020-04-20 14:34:28
- * @LastEditTime: 2020-04-25 16:05:30
+ * @LastEditTime: 2020-05-03 12:51:41
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\services\user.js
 */
 
 const { User } = require('../db/model/index');
 const { formatUser } = require('./_format');
+const { addFollower } = require('./userRelation');
 /**
  * 获取用户信息
  * @param {string} userName 
@@ -46,7 +47,10 @@ async function createUser({userName, password, gender = 3, nickName}){
     gender,
     nickName: nickName ? nickName : userName
   })
-  return result.dataValues
+  const data = result.dataValues
+  //自己关注自己（方便首页获取数据）
+  addFollower(data.id, data.id)
+  return data
 }
 
 /**

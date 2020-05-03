@@ -2,7 +2,7 @@
  * @Descripttion  : user controller
  * @Author        : 马识途
  * @Date          : 2020-04-20 14:18:02
- * @LastEditTime: 2020-04-25 15:57:48
+ * @LastEditTime: 2020-05-03 12:47:04
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\controller\user.js
 */
 const { getUserInfo, createUser, deleteUser, updateUser } = require('../services/user');
@@ -46,8 +46,8 @@ async function register({userName, password, gender}){ //解构方式 可以不�
     return new SuccessModel()
   } catch (error) {
     console.error(error);
-    console.error(error.message, error.stack);
-    return ErrorModel(registerFailInfo)
+    
+    return new ErrorModel(registerFailInfo)
   }
 }
 /**

@@ -5,7 +5,7 @@
  * @LastEditTime  : 2020-05-02 11:03:55
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\views\widgets\load-more.ejs
  -->
- <div class="margin-bottom-20 ">
+<div class="margin-bottom-20 ">
     <button id="btn-load-more" type="button" class="btn btn-sm btn-lg btn-block">点击加载更多</button>
 </div>
 
@@ -14,9 +14,9 @@
     var PAGE_INDEX =  <%= pageIndex%>
     var COUNT =  <%= count%>
     var $btnLoadMore = $('#btn-load-more')
-    var $containerWeiboList = $('#container-weibo-list')
-    
-    var api = '/api/profile/loadMore/<%= userName%>'
+    var $containerWeiboList = $('<%= containerSelector%>')
+    var api = '<%= api%>'
+
     // 加载更多
     $btnLoadMore.click(function () {
         var nextPageIndex = PAGE_INDEX + 1

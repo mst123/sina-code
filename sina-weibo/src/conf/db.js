@@ -2,8 +2,8 @@
  * @Descripttion : 
  * @Author       : 马识途
  * @Date         : 2020-04-19 12:20:26
- * @LastEditTime: 2020-04-19 16:04:18
- * @FilePath     : \hnswc-webg:\codeFile\nodeJS\sina-code\src\conf\db.js
+ * @LastEditTime: 2020-05-02 11:54:27
+ * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\conf\db.js
  */
 
 const { isProd } = require('../utils/env')

@@ -2,8 +2,8 @@
  * @Descripttion : _ 内部使用 数据格式化
  * @Author       : 马识途
  * @Date         : 2020-04-20 14:51:26
- * @LastEditTime: 2020-04-20 15:12:19
- * @FilePath     : \projecte:\codeFile\sina-code\sina-weibo\src\services\_format.js
+ * @LastEditTime: 2020-05-02 16:50:19
+ * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\services\_format.js
 */
 
 const { DEFAULT_PICTURE } = require('../conf/constant');

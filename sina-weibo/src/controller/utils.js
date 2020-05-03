@@ -5,7 +5,7 @@
  * @LastEditTime: 2020-04-25 13:24:20
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\controller\utils.js
 */
-const { ErrorModel, SucessModel } = require('../resModel/ResModel');
+const { ErrorModel, SuccessModel } = require('../resModel/ResModel');
 const { uploadFileSizeFailInfo } = require('../resModel/errorInfo');
 const fse = require('fs-extra');
 const path = require('path');
@@ -38,7 +38,7 @@ async function saveFile({ name, type, size, filePath}) {
   await fse.move(filePath, distFilePath)
 
   //返回信息
-  return new SucessModel({
+  return new SuccessModel({
     url: '/' + fileName
   })
 }

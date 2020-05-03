@@ -7,7 +7,7 @@
 */
 
 const { getBlogListByUser } = require('../services/blog');
-const { ErrorModel, SucessModel } = require('../resModel/ResModel');
+const { ErrorModel, SuccessModel } = require('../resModel/ResModel');
 const { PAGE_SIZE } = require('../conf/constant');
 /**
  * 获取个人主页微博列表
@@ -21,7 +21,7 @@ async function getProfileBlogList(userName, pageIndex = 0){
   })
   console.log(result);
   
-  return new SucessModel({
+  return new SuccessModel({
     isEmpty: result.blogList.length === 0,
     blogList: result.blogList,
     pageSize: PAGE_SIZE,

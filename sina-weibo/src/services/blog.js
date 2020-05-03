@@ -2,7 +2,7 @@
  * @Descripttion  : blog sevice
  * @Author        : 马识途
  * @Date          : 2020-04-25 19:52:13
- * @LastEditTime: 2020-05-02 10:37:59
+ * @LastEditTime: 2020-05-02 11:43:59
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\services\blog.js
 */
 const { Blog, User } = require('../db/model/index');
@@ -22,7 +22,7 @@ async function createBlog({userId, content, image}){
 }
 /**
  * 根据用户名获取微博列表
- * @param {Object} param  userName 用户名, pageIndex=0 当前页, pageSize=10 显示条数
+ * @param {Object} param  userName 用户名, pageIndex=0 当前页, pageSize=5 显示条数
  */
 async function getBlogListByUser({userName, pageIndex = 0, pageSize = 5}){
   // 拼接查询条件

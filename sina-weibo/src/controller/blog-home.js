@@ -7,7 +7,7 @@
 */
 const xss = require('xss');
 const { createBlog } =require('../services/blog');
-const { SucessModel, ErrorModel } = require('../resModel/ResModel');
+const { SuccessModel, ErrorModel } = require('../resModel/ResModel');
 const { createBlogFailInfo } = require('../resModel/errorInfo');
 /**
  * 新建博客
@@ -20,7 +20,7 @@ async function create({userId, content, image}){
       content: xss(content), 
       image
     })
-    return new SucessModel(blog)
+    return new SuccessModel(blog)
   } catch (error) {
     console.error(error);
     return new ErrorModel(createBlogFailInfo)

@@ -6,7 +6,7 @@
  * @FilePath      : \hnswc-webg:\codeFile\nodeJS\sina-code\sina-weibo\src\controller\user.js
 */
 const { getUserInfo, createUser, deleteUser, updateUser } = require('../services/user');
-const { SucessModel, ErrorModel } = require('../resModel/ResModel');
+const { SuccessModel, ErrorModel } = require('../resModel/ResModel');
 const { 
   registerUserNameNotExistInfo,
   registerUserNameExistInfo, 
@@ -21,7 +21,7 @@ const doCrypto = require('../utils/cryp');
 async function isExist(userName){
   const userInfo = await getUserInfo(userName)
   if(userInfo){ //用户名已存在
-    return new SucessModel(userInfo)
+    return new SuccessModel(userInfo)
   }else{
     return new ErrorModel(registerUserNameNotExistInfo)
   }
@@ -43,7 +43,7 @@ async function register({userName, password, gender}){ //解构方式 可以不�
       password: doCrypto(password), 
       gender
     })
-    return new SucessModel()
+    return new SuccessModel()
   } catch (error) {
     console.error(error);
     console.error(error.message, error.stack);
@@ -66,7 +66,7 @@ async function login({ctx, userName, password}){
     //每一个用户的session都是唯一的，通过cookie携带
     ctx.session.userInfo = userInfo 
   }
-  return new SucessModel()
+  return new SuccessModel()
 }
 /**
  * 删除当前用户 仅测试环境下
@@ -75,7 +75,7 @@ async function login({ctx, userName, password}){
 async function deleteCurUser(userName) {
   const result = await deleteUser(userName)
   if(result){
-    return new SucessModel()
+    return new SuccessModel()
   }else{
     return new ErrorModel(deleteUserFailInfo)
   }
@@ -105,7 +105,7 @@ async function changeInfo(ctx, { nickName, city, picture }){
       city, 
       picture
     })
-    return new SucessModel()
+    return new SuccessModel()
   }else{
     return new ErrorModel(changeInfoFailInfo)
   }
@@ -122,7 +122,7 @@ async function changePassword ({ userName, password, newPassword }){
     { userName, password: doCrypto(password) }
   )
   if(result){
-    return new SucessModel()
+    return new SuccessModel()
   }else{
     return new ErrorModel(changePasswordFailInfo)
   }
@@ -133,7 +133,7 @@ async function changePassword ({ userName, password, newPassword }){
  */
 async function logout(ctx){
   delete ctx.session.userInfo
-  return new SucessModel()
+  return new SuccessModel()
 } 
 module.exports = {
   isExist,
